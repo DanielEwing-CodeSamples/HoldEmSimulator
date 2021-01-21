@@ -1,0 +1,5 @@
+1/21 -	evaluateHand() function now sets kickers appropriately for the following hand types.
+				high card, pair, two pair, three of a kind, straight, flush, full house
+		compareSimilarHand() function now evaluates hands and kickers appropriately for the following hand types.
+				high card, pair, two pair, three of a kind, straight, flush, full house
+

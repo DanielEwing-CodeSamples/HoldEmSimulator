@@ -1,0 +1,1 @@
+1. Evaluate for straight and royal flushes in player.cpp and also in compareSimilarHands function in source.cpp().
