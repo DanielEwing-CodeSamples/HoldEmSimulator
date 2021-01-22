@@ -1,1 +1,2 @@
-1. Evaluate for straight and royal flushes in player.cpp and also in compareSimilarHands function in source.cpp().
+1. Evaluate for royal flushes in player.cpp and also in compareSimilarHands function in source.cpp().
+	Fix check for straight flushes, as of right now it only works when there are no cards with the same value inside the flush, IE 2H, 3H, 3D, 4H, 5H, 6H, 7D would return false.

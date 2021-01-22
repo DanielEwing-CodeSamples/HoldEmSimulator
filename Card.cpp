@@ -1,4 +1,7 @@
 #include "Card.h"
+#include<utility>
+#include<algorithm>
+#include<tuple>
 //overloaded operators at the bottom
 
 Card::Card() {
@@ -43,4 +46,11 @@ bool operator!=(Card cardOne, Card cardTwo) {
 		return true;
 	}
 	else return false;
+}
+bool operator<(Card cardOne, Card cardTwo) {
+	return tie(cardOne.cardSuit, cardOne.cardValue) < tie(cardTwo.cardSuit, cardTwo.cardValue);
+}
+	
+bool operator>(Card cardOne, Card cardTwo) {
+	return tie(cardOne.cardValue, cardOne.cardSuit) > tie(cardTwo.cardValue, cardTwo.cardSuit);
 }

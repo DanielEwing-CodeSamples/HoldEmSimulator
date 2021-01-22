@@ -1,4 +1,5 @@
 #include "Player.h"
+#include<algorithm>
 
 Player::Player() {
 	for (int i = 0; i < 13; i++) {
@@ -132,6 +133,10 @@ void Player::discardHand() {
 	kickerValue = 0;
 }
 
+void Player::sortHand() {
+	sort(playerHand.begin(), playerHand.end());		
+}
+
 
 bool Player::checkPair() {
 	for (int i = 12; i >= 0; i--) {
@@ -168,11 +173,11 @@ bool Player::checkTwoPair(){
 		}
 	}
 	if (numOfPairsIter == 2) { // two pairs exist
-		for (int i = 12; i >= 0; i++) {
+		for (int i = 12; i >= 0; i--) {
 			if (numOfCardsArr[i] > 0 && i + 2 != twoPairValue && i + 2 != pairValue) { // conditions met for kicker, set value and return true;
 				kickerValue = i + 2;
 				handScore = 2;
-				return true;
+				return true;  
 			}
 		}
 	}
@@ -298,7 +303,33 @@ bool Player::checkFlush() {
 }
 
 
-bool Player::checkStrAndRoyalFlush() {
-	return false;
+bool Player::checkStraightFlush() {
+	sortHand();
+	string tempString = "";
+	int tempInt = 0;
+	int conseqCardsCounter = 0;
+	for (vector<Card>::iterator iter = playerHand.begin(); iter != playerHand.end() - 1; iter++) {
+		if (conseqCardsCounter == 4) {
+			if ((iter)->getCardValue() == 14) {
+				handScore = 9;
+				straightHighValue = 14;
+				cout << "ROYAL flush found!!!\n";
+				system("pause");
+				printHand();
+				system("pause");
+				return true;
+			}
+			else {
+				handScore = 8;
+				straightHighValue = (iter - 1)->getCardValue();
+				return true;
+			}
+		}
+		else if (iter->getCardValue() == (iter + 1)->getCardValue() - 1 && iter->getCardSuit() == (iter + 1)->getCardSuit())  {
+			conseqCardsCounter++;
+		}
+		else conseqCardsCounter = 0;				
+	}
 
+	return false;
 }

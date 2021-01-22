@@ -28,6 +28,8 @@ public:
 
 	bool friend operator==(Card cardOne, Card cardTwo);
 	bool friend operator!=(Card cardOne, Card cardTwo);
+	bool friend operator<(Card cardOne, Card cardTwo);
+	bool friend operator>(Card cardOne, Card cardTwo);
 };
 
 #endif Card_h

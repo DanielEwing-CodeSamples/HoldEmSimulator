@@ -12,12 +12,15 @@ int main() {
 	Deck deckOfCards;
 	Player player1, player2, player3, player4, player5;
 	const Card pOneCardOne(13, "King", "Hearts");
-	const Card pOneCardTwo(13, "King", "Diamonds");
+	const Card pOneCardTwo(13, "Ace", "Hearts");
 	Card tempCard;
 	void evaluatePlayerHand(Player & tempPlayer);
 	int compareSimilarHands(Player playerX, Player playerY); // 0 = playerX loses, 1 = playerX ties, 2 = playerX wins.
 
-	for (int i = 0; i < 1000; i++) {
+	for (int i = 0; i < 1000000; i++) {
+		if (i == 71366 || i == 71367) {
+			system("pause");
+		}
 		deckOfCards.shuffleDeck();
 		player1.discardHand();
 		player2.discardHand();
@@ -64,7 +67,9 @@ int main() {
 			player4.recieveDealtCard(tempCard);
 			player5.recieveDealtCard(tempCard);*/
 		}
-
+		//player1.sortHand();
+		//player1.printHand();
+		//system("pause");
 		evaluatePlayerHand(player1);
 		evaluatePlayerHand(player2);
 		/*evaluatePlayerHand(player3);
@@ -143,8 +148,8 @@ int main() {
 		}
 	}
 
-	cout << scoreCounter << " games won out of 1000 games.\n";
-	cout << tieCounter << " games tied out of 1000 games.\n";
+	cout << scoreCounter << " games won out of 100000 games.\n";
+	cout << tieCounter << " games tied out of 100000 games.\n";
 	auto finish = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> elapsedTime = finish - start;
 	std::cout << "Total Run Time: " << elapsedTime.count() << " seconds.\n";
@@ -165,6 +170,9 @@ void evaluatePlayerHand(Player &tempPlayer) { //eliminates unnessecary searches.
 	}
 	tempPlayer.checkFlush();
 	tempPlayer.checkStraight();
+	if (tempPlayer.checkFlush() == true and tempPlayer.checkStraight() == true) {
+		tempPlayer.checkStraightFlush();
+	}
 }
 int compareSimilarHands(Player playerX, Player playerY) { // 0 = playerX loses, 1 = playerX ties, 2 = playerX wins.	
 	if (playerX.getHandScore() == 0) { // high card

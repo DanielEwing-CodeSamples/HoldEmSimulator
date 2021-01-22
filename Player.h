@@ -14,6 +14,7 @@ public:
 	void discardHand();
 	void evaluateHandScore();
 	void printHand(); // test function. 
+	void sortHand();
 
 	bool checkPair();
 	bool checkTwoPair();
@@ -22,7 +23,7 @@ public:
 	bool checkFullHouse();
 	bool checkStraight();
 	bool checkFlush();
-	bool checkStrAndRoyalFlush();
+	bool checkStraightFlush();
 
 
 	int getHandScore();

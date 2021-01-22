@@ -1,6 +1,7 @@
 #include "Deck.h"
 #include<time.h>
 #include<iostream> 
+#include<algorithm>
 
 //Completely Modular Class. Usable for any card game.
 
@@ -46,11 +47,7 @@ void Deck::printDeck() {
 
 
 void Deck::shuffleDeck() {
-	srand(time(0));
-	for (int i = 0; i < deckOfCards.size(); i++) {
-		int random = rand() % (deckOfCards.size());
-		swap(deckOfCards[i], deckOfCards[random]);
-	}
+	random_shuffle(deckOfCards.begin(), deckOfCards.end());
 }
 
 Card Deck::dealCard() {								

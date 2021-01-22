@@ -3,3 +3,9 @@
 		compareSimilarHand() function now evaluates hands and kickers appropriately for the following hand types.
 				high card, pair, two pair, three of a kind, straight, flush, full house
 
+1/22 -	shuffleDeck() in deck.cpp now more random using the random_shuffle function from the algorithm library.
+		Now checks for straight flushes.
+				now sorts hands by suit and then by value. 
+
+		
+
