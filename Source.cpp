@@ -10,24 +10,17 @@ int main() {
 	double scoreCounter = 0;
 	double tieCounter = 0;
 	Deck deckOfCards;
-	Player player1, player2, player3, player4, player5;
+	Player player1, player2;
 	const Card pOneCardOne(13, "King", "Hearts");
-	const Card pOneCardTwo(13, "Ace", "Hearts");
+	const Card pOneCardTwo(13, "King", "Diamonds");
 	Card tempCard;
 	void evaluatePlayerHand(Player & tempPlayer);
 	int compareSimilarHands(Player playerX, Player playerY); // 0 = playerX loses, 1 = playerX ties, 2 = playerX wins.
 
-	for (int i = 0; i < 1000000; i++) {
-		if (i == 71366 || i == 71367) {
-			system("pause");
-		}
+	for (int i = 0; i < 10000; i++) {
 		deckOfCards.shuffleDeck();
 		player1.discardHand();
 		player2.discardHand();
-	/*	player3.discardHand();
-		player4.discardHand();
-		player5.discardHand();*/
-
 		player1.recieveDealtCard(pOneCardOne);
 		player1.recieveDealtCard(pOneCardTwo);
 
@@ -38,21 +31,6 @@ int main() {
 				tempCard = deckOfCards.dealCard();
 			}
 			player2.recieveDealtCard(tempCard);
-		/*	while (tempCard == pOneCardOne || tempCard == pOneCardTwo) {
-				tempCard = deckOfCards.dealCard();
-			}
-			player3.recieveDealtCard(tempCard);
-			tempCard = deckOfCards.dealCard();
-			while (tempCard == pOneCardOne || tempCard == pOneCardTwo) {
-				tempCard = deckOfCards.dealCard();
-			}
-			player4.recieveDealtCard(tempCard);
-			tempCard = deckOfCards.dealCard();
-			while (tempCard == pOneCardOne || tempCard == pOneCardTwo) {
-				tempCard = deckOfCards.dealCard();
-			}
-			player5.recieveDealtCard(tempCard);
-			tempCard = deckOfCards.dealCard();*/
 		}
 
 
@@ -63,93 +41,37 @@ int main() {
 			}
 			player1.recieveDealtCard(tempCard);
 			player2.recieveDealtCard(tempCard);
-	/*		player3.recieveDealtCard(tempCard);
-			player4.recieveDealtCard(tempCard);
-			player5.recieveDealtCard(tempCard);*/
+
 		}
-		//player1.sortHand();
-		//player1.printHand();
-		//system("pause");
 		evaluatePlayerHand(player1);
 		evaluatePlayerHand(player2);
-		/*evaluatePlayerHand(player3);
-		evaluatePlayerHand(player4);
-		evaluatePlayerHand(player5);*/
 
-		cout << player1.getHandScore() << " " << player2.getHandScore() << " \n"; // " " << player3.getHandScore() << " " << player4.getHandScore() << " " << player5.getHandScore() << " \n";
+		cout << player1.getHandScore() << " " << player2.getHandScore() << " \n";
 
 		if (player1.getHandScore() < player2.getHandScore()) {
-			cout << "Lost Hand: " << i + 1 << " to another players hand score.\n";
+			cout << "Outright lost Hand: " << i + 1 << " to another players hand score.\n";
 		}
-	/*	if (player1.getHandScore() < player2.getHandScore() || player1.getHandScore() < player3.getHandScore()
-			|| player1.getHandScore() < player4.getHandScore() || player1.getHandScore() < player5.getHandScore()) {
-			cout << "Lost Hand: " << i + 1 << " to another players hand score.\n";
-		}*/
 		else if (player1.getHandScore() > player2.getHandScore()) {
 			scoreCounter++;
 			cout << "Outright won hand: " << i + 1 << "\n";
 		}
-		/*else if (player1.getHandScore() > player2.getHandScore() && player1.getHandScore() > player3.getHandScore()
-			&& player1.getHandScore() > player4.getHandScore() && player1.getHandScore() > player5.getHandScore()) {
-			scoreCounter++;
-				cout << "Outright won hand: " << i + 1 << "\n";
-		}*/
 		else { // one or more players hold hands with equivalent values as player1. check for high cards amongst these players
-			bool player1Wins = true;
-			while (player1Wins == true) {
-				if (player1.getHandScore() == player2.getHandScore()) {
-					if (compareSimilarHands(player1, player2) == 0) {
-						cout << "lost tie in hand: " << i + 1 << " to player 2.\n";
-						player1Wins = false;
-						break;
-					}
-					else if (compareSimilarHands(player1, player2) == 1) {   //NEED CHANGES HERE WHEN EVALUATION FUNCTIONS ARE COMPLETED. KICKERS WILL ALREADY EVALUATE THIS AND DETERMINE THE HAND WAS TIED. SEE CHECKPAIR()
-						if (player1.getHighCardValue() > player2.getHighCardValue()) {
-							cout << "won tie in hand: " << i + 1 << " against player 2.\n";
-							scoreCounter++;
-							break;
-						}
-						else if (player1.getHighCardValue() == player2.getHighCardValue()) {
-							tieCounter++;
-							cout << "TIED HAND: " << i + 1 << ".\n";
-							player1Wins = false;
-							break;
-						}
-					}
-				}
-				/*if (player1.getHandScore() == player3.getHandScore()) {
-					if (compareSimilarHands(player1, player3) < 2) {
-						cout << "lost tie in hand: " << i + 1 << " to player 3.\n";
-						player1Wins = false;
-						break;
-					}
-				}
-				if (player1.getHandScore() == player4.getHandScore()) {
-					if (compareSimilarHands(player1, player4) < 2) {
-						cout << "lost tie in hand: " << i + 1 << " to player 4.\n";
-						player1Wins = false;
-						break;
-					}
-				}
-				if (player1.getHandScore() == player5.getHandScore()) {
-					if (compareSimilarHands(player1, player5) < 2) {
-						cout << "lost tie in hand: " << i + 1 << " to player 5.\n";
-						player1Wins = false;
-						break;
-					}
-				}*/
-				if (player1Wins == true) {
-					scoreCounter++;
-					cout << "Won A Tie in hand: " << i + 1 << "\n";
-					player1Wins = false;
-				}
+			if (compareSimilarHands(player1, player2) == 0) {
+				cout << "lost tie in hand: " << i + 1 << " to player 2.\n";
 			}
-		
+			else if (compareSimilarHands(player1, player2) == 1) {   //NEED CHANGES HERE WHEN EVALUATION FUNCTIONS ARE COMPLETED. KICKERS WILL ALREADY EVALUATE THIS AND DETERMINE THE HAND WAS TIED. SEE CHECKPAIR()
+				cout << "tied hand: " << i + 1 << ".\n";
+				tieCounter++;
+			}
+			else {
+				scoreCounter++;
+				cout << "Won A Tie in hand: " << i + 1 << "\n";
+			}
 		}
 	}
 
-	cout << scoreCounter << " games won out of 100000 games.\n";
-	cout << tieCounter << " games tied out of 100000 games.\n";
+	cout << scoreCounter << " games won out of 10000 games.\n";
+	cout << tieCounter << " games tied out of 10000 games.\n";
 	auto finish = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> elapsedTime = finish - start;
 	std::cout << "Total Run Time: " << elapsedTime.count() << " seconds.\n";
@@ -157,9 +79,9 @@ int main() {
 	return 0;
 }
 
-void evaluatePlayerHand(Player &tempPlayer) { //eliminates unnessecary searches. 
+void evaluatePlayerHand(Player& tempPlayer) { //eliminates unnessecary searches. 
 	if (tempPlayer.checkPair() == true) {
-		if (tempPlayer.checkTwoPair() == true)	{
+		if (tempPlayer.checkTwoPair() == true) {
 			if (tempPlayer.checkThreeOfAKind() == true) {
 				tempPlayer.checkFullHouse();
 			}
@@ -170,7 +92,7 @@ void evaluatePlayerHand(Player &tempPlayer) { //eliminates unnessecary searches.
 	}
 	tempPlayer.checkFlush();
 	tempPlayer.checkStraight();
-	if (tempPlayer.checkFlush() == true and tempPlayer.checkStraight() == true) {
+	if (tempPlayer.checkFlush() != false && tempPlayer.checkStraight() != false) {
 		tempPlayer.checkStraightFlush();
 	}
 }
@@ -186,14 +108,14 @@ int compareSimilarHands(Player playerX, Player playerY) { // 0 = playerX loses, 
 		if (playerX.getPairValue() > playerY.getPairValue())
 			return 2;
 		else if (playerX.getPairValue() == playerY.getPairValue()) {
-			if (playerX.getKickerValue() > playerY.getKickerValue())		
+			if (playerX.getKickerValue() > playerY.getKickerValue())
 				return 2;
 			else if (playerX.getKickerValue() == playerY.getKickerValue())
 				return 1;
 			else
 				return 0;
 		}
-		else 
+		else
 			return 0;
 	}
 	else if (playerX.getHandScore() == 2) { // two pair
@@ -286,7 +208,8 @@ int compareSimilarHands(Player playerX, Player playerY) { // 0 = playerX loses, 
 			return 0;
 		}
 	}
-	else if (playerX.getHandScore() == 8) { // straight flush
+	else if (playerX.getHandScore() == 8) {
+
 	}
 	else if (playerX.getHandScore() == 9) { // royal flush
 	}

@@ -48,9 +48,9 @@ bool operator!=(Card cardOne, Card cardTwo) {
 	else return false;
 }
 bool operator<(Card cardOne, Card cardTwo) {
-	return tie(cardOne.cardSuit, cardOne.cardValue) < tie(cardTwo.cardSuit, cardTwo.cardValue);
+	return tie(cardOne.cardSuit, cardOne.cardValue) < tie(cardTwo.cardSuit, cardTwo.cardValue); // sorts by suit and then by card value, only used for straight and royal flushes.
 }
 	
 bool operator>(Card cardOne, Card cardTwo) {
-	return tie(cardOne.cardValue, cardOne.cardSuit) > tie(cardTwo.cardValue, cardTwo.cardSuit);
+	return tie(cardOne.cardValue, cardOne.cardSuit) > tie(cardTwo.cardValue, cardTwo.cardSuit); // sorts by suit and then by card value. only used for straight and royal flushes.
 }
