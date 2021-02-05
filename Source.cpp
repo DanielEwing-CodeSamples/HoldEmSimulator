@@ -74,7 +74,7 @@ int main() {
 	cout << tieCounter << " games tied out of 10000 games.\n";
 	auto finish = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> elapsedTime = finish - start;
-	std::cout << "Total Run Time: " << elapsedTime.count() << " seconds.\n";
+	std::cout << "Run Time per hand played: " << elapsedTime.count()/10 << " milliseconds.\n";
 	system("pause");
 	return 0;
 }
